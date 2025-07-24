@@ -104,7 +104,7 @@ Then open http://localhost:8501.
 -Model fine-tuning on larger diverse datasets
 
 
-# Dont forget to try the fully deployed project here:
+### Dont forget to try the fully deployed project here:
 https://ai-resume-classifier-05wr.onrender.com
 deployed on render
 
