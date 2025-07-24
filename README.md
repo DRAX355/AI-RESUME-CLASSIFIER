@@ -94,6 +94,20 @@ Then open http://localhost:8501.
 
 -Visualize predictions using horizontal bar charts
 
+## 🖼️ Screenshots
+
+### 🔹 Home Page
+![Home Page](screenshots/home.png)
+
+### 🔹 Top 3 Predictions
+![Predictions](screenshots/prediction.png)
+
+### 🔹 Bar Chart
+![Predictions](screenshots/allcat.png)
+
+
+
+
 ## 📌 Future Enhancements
 -Resume ranking based on JD matching
 
