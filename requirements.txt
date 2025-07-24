@@ -3,3 +3,4 @@ joblib
 fitz
 re
 scikit-learn
+numpy
