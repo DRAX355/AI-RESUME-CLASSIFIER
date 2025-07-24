@@ -4,9 +4,8 @@ import streamlit as st
 import joblib
 import re
 import fitz  # PyMuPDF
-
-
-
+import numpy as np
+import matplotlib.pyplot as plt
 
 # ----------- Define Stopwords Manually (faster, avoids download) -----------
 stop_words = set([
@@ -51,7 +50,7 @@ def load_model_and_vectorizer():
 # ----------- Streamlit UI -----------
 st.set_page_config(page_title="Resume Classifier", page_icon="📄")
 st.title("🤖 Resume Job Category Classifier")
-st.markdown("Upload your resume (PDF or TXT), and get the predicted job category!")
+st.markdown("Upload your resume (PDF or TXT), and get the top 3 predicted job categories!")
 
 uploaded_file = st.file_uploader("Upload Resume", type=["pdf", "txt"])
 
@@ -67,10 +66,29 @@ if uploaded_file:
         if cleaned_text.strip():
             model, vectorizer = load_model_and_vectorizer()
             vectorized_input = vectorizer.transform([cleaned_text])
-            prediction = model.predict(vectorized_input)[0]
 
-            st.subheader("🔍 Predicted Category:")
-            st.success(prediction)
+            # Get probabilities for all classes
+            probabilities = model.predict_proba(vectorized_input)[0]
+            top3_indices = np.argsort(probabilities)[::-1][:3]
+            top3_categories = [(model.classes_[i], probabilities[i]) for i in top3_indices]
+
+            st.subheader("🔍 Top 3 Predicted Categories:")
+
+            # Display as progress bars
+            for category, prob in top3_categories:
+                st.write(f"**{category}** : {prob*100:.2f}%")
+                st.progress(prob)
+
+            # Pie chart visualization
+            labels = [cat for cat, _ in top3_categories]
+            sizes = [prob for _, prob in top3_categories]
+
+            fig, ax = plt.subplots()
+            ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
+            ax.axis('equal')
+            st.pyplot(fig)
+
         else:
             st.warning("Resume text appears empty after cleaning. Please upload a different file.")
-        st.info("Ensure your resume is well-formatted and contains sufficient text for classification.")    
+
+        st.info("Ensure your resume is well-formatted and contains sufficient text for classification.")
