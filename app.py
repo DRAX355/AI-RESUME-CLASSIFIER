@@ -67,25 +67,38 @@ if uploaded_file:
             model, vectorizer = load_model_and_vectorizer()
             vectorized_input = vectorizer.transform([cleaned_text])
 
-            # Get probabilities for all classes
             probabilities = model.predict_proba(vectorized_input)[0]
+            all_categories = list(zip(model.classes_, probabilities))
+
+            # Top 3 categories for progress bars
             top3_indices = np.argsort(probabilities)[::-1][:3]
             top3_categories = [(model.classes_[i], probabilities[i]) for i in top3_indices]
 
             st.subheader("🔍 Top 3 Predicted Categories:")
 
-            # Display as progress bars
             for category, prob in top3_categories:
                 st.write(f"**{category}** : {prob*100:.2f}%")
                 st.progress(prob)
 
-            # Pie chart visualization
-            labels = [cat for cat, _ in top3_categories]
-            sizes = [prob for _, prob in top3_categories]
+            # Horizontal bar chart for all categories
+            labels = [cat for cat, _ in all_categories]
+            sizes = [prob*100 for _, prob in all_categories]
 
-            fig, ax = plt.subplots()
-            ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90)
-            ax.axis('equal')
+            sorted_indices = np.argsort(sizes)
+            labels_sorted = [labels[i] for i in sorted_indices]
+            sizes_sorted = [sizes[i] for i in sorted_indices]
+
+            fig, ax = plt.subplots(figsize=(8, len(labels_sorted)*0.4))
+            bars = ax.barh(labels_sorted, sizes_sorted, color='skyblue')
+            ax.set_xlabel("Probability (%)")
+            ax.set_title("All Category Probabilities")
+
+            for bar in bars:
+                width = bar.get_width()
+                ax.text(width + 0.5, bar.get_y() + bar.get_height()/2,
+                        f"{width:.2f}%", va='center')
+
+            st.subheader("📊 Category Probability Distribution (All Classes)")
             st.pyplot(fig)
 
         else:
