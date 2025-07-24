@@ -52,4 +52,60 @@ Clone the repo:
 ```bash
 git clone https://github.com/DRAX355/AI-RESUME-CLASSIFIER.git
 cd AI-RESUME-CLASSIFIER
+```
+## Install dependencies:
 
+
+pip install -r requirements.txt
+Run the Streamlit app:
+
+streamlit run app.py
+Then open http://localhost:8501 in your browser.
+
+🐳 Run with Docker
+Build the image:
+```bash
+docker build -t resume-classifier .
+```
+Run the container:
+```bash
+
+docker run -p 8501:8501 resume-classifier
+```
+Then open http://localhost:8501.
+
+## 📁 Project Structure
+-app.py – Streamlit frontend and ML integration
+
+-resume_classifier_model.pkl – Trained classification model
+
+-tfidf_vectorizer.pkl – Vectorizer used during training
+
+-Dockerfile – For containerized deployment
+
+-requirements.txt – Python dependencies
+
+## 💡 Features
+-Upload resumes in PDF or TXT format
+
+-Clean text and remove noise efficiently
+
+-Predict top 3 job categories with probability scores
+
+-Visualize predictions using horizontal bar charts
+
+## 📌 Future Enhancements
+-Resume ranking based on JD matching
+
+-Integration with applicant tracking systems
+
+-Support for DOCX resumes
+
+-Model fine-tuning on larger diverse datasets
+
+
+# Dont forget to try the fully deployed project here:
+https://ai-resume-classifier-05wr.onrender.com
+deployed on render
+
+## ⭐ Give this repo a star if you find it useful!
