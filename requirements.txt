@@ -1,6 +1,6 @@
 streamlit
 joblib
-fitz
-re
 scikit-learn
+PyMuPDF
+matplotlib
 numpy
