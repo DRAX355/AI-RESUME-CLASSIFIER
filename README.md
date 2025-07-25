@@ -60,8 +60,9 @@ pip install -r requirements.txt
 Run the Streamlit app:
 ```bash
 streamlit run app.py
-Then open http://localhost:8501 in your browser.
 ```
+Then open http://localhost:8501 in your browser.
+
 🐳 Run with Docker
 Build the image:
 ```bash
