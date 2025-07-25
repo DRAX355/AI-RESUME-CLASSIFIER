@@ -54,14 +54,14 @@ git clone https://github.com/DRAX355/AI-RESUME-CLASSIFIER.git
 cd AI-RESUME-CLASSIFIER
 ```
 ## Install dependencies:
-
-
+```bash
 pip install -r requirements.txt
+```
 Run the Streamlit app:
-
+```bash
 streamlit run app.py
 Then open http://localhost:8501 in your browser.
-
+```
 🐳 Run with Docker
 Build the image:
 ```bash
